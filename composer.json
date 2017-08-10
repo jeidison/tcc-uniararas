@@ -1,0 +1,11 @@
+{
+    "name": "tcc/tcc-uniararas",
+    "description": "Pacote do project TCC Uniararas",
+    "authors": [
+        {
+            "name": "Jeidison Farias",
+            "email": "jeidison.farias@gmail.com"
+        }
+    ],
+    "require": {}
+}
