@@ -1,0 +1,26 @@
+{
+    "name": "tcc-uniararas/tdd",
+    "authors": [
+        {
+            "name": "Jeidison Farias",
+            "email": "jeidison.farias@gmail.com"
+        },
+        {
+            "name": "Paulo Cruz",
+            "email": "paulosscruz95@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7",
+        "phpunit/phpunit": "^6.3"
+    },
+    "require-dev": {
+        
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Tests\\": "tests/"
+        }
+    }
+}
