@@ -1,6 +1,6 @@
 {
-    "name": "tcc/tcc-uniararas",
     "description": "Pacote do project TCC Uniararas",
+    "name": "tcc-uniararas/tdd",
     "authors": [
         {
             "name": "Jeidison Farias",
@@ -10,5 +10,23 @@
     "require": {},
     "require-dev": {
         "codeception/codeception": "^2.3"
+        },
+        {
+            "name": "Paulo Cruz",
+            "email": "paulosscruz95@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7",
+        "phpunit/phpunit": "^6.3"
+    },
+    "require-dev": {
+        
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Tests\\": "tests/"
+        }
     }
 }
