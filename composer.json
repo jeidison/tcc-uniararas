@@ -1,9 +1,15 @@
 {
+    "description": "Pacote do project TCC Uniararas",
     "name": "tcc-uniararas/tdd",
     "authors": [
         {
             "name": "Jeidison Farias",
             "email": "jeidison.farias@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "codeception/codeception": "^2.3"
         },
         {
             "name": "Paulo Cruz",
