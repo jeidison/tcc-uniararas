@@ -28,6 +28,6 @@ class UserCreateTest extends \Codeception\Test\Unit
         $this->user->setPhone('19999999999');
         $this->user->setEmail('teste@uniararas.com.br');
         $this->user->setStatus('INATIVO');
-        $this->assertFalse($this->user->validate(['user']), "Validação incorreta! Nome com mais de 30 caracteres...");
+        $this->user->create();
     }
 }
