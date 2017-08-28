@@ -21,7 +21,7 @@ class UserApplication
 
     }
 
-    public function delete()
+    public function delete($id)
     {
 
     }
