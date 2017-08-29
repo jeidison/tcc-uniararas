@@ -1,7 +1,7 @@
 <?php
 
 
-class UserApplicationTest extends \Codeception\Test\Unit
+class UserApplicationCreateTest extends \Codeception\Test\Unit
 {
     /**
      * @var \UnitTester
@@ -343,21 +343,4 @@ class UserApplicationTest extends \Codeception\Test\Unit
         $this->assertNotNull($result);
         $this->assertFalse($result->success);
     }
-
-    public function testDeleteWithUserNotExists()
-    {
-        $appUser = new UserApplication();
-        $result = $appUser->delete(777);
-        $this->assertNotNull($result);
-        $this->assertFalse($result->success);
-    }
-
-    public function testDeleteWithEnableStatus()
-    {
-        $appUser = new UserApplication();
-        $result = $appUser->delete(1);
-        $this->assertNotNull($result);
-        $this->assertFalse($result->success);
-    }
-
 }

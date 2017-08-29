@@ -26,7 +26,7 @@ class UserApplication
 
     }
 
-    public function update()
+    public function update(User $user)
     {
 
     }
