@@ -20,7 +20,7 @@ class UserSearchApplicationTest extends TestCase
         $this->assertNotNull($result);
     }
 
-    public function testSearchWithDhNasc()
+    public function testSearchWithBirthDate()
     {
         $searchParam = new SearchParam();
         $searchParam->dhNasc = "2000-01-01";
@@ -38,7 +38,7 @@ class UserSearchApplicationTest extends TestCase
         $this->assertNotNull($result);
     }
 
-    public function testSearchWithoutParam()
+    public function testSearchWithOutParam()
     {
         $searchParam = new SearchParam();
         $appUser = new UserApplication();
