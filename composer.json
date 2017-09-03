@@ -1,32 +1,27 @@
 {
-    "description": "Pacote do project TCC Uniararas",
-    "name": "tcc-uniararas/tdd",
-    "authors": [
-        {
-            "name": "Jeidison Farias",
-            "email": "jeidison.farias@gmail.com"
-        }
-    ],
-    "require": {},
-    "require-dev": {
-        "codeception/codeception": "^2.3"
-        },
-        {
-            "name": "Paulo Cruz",
-            "email": "paulosscruz95@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=7",
-        "phpunit/phpunit": "^6.3"
+  "description": "Pacote do project TCC Uniararas",
+  "name": "tcc-uniararas/tdd",
+  "authors": [
+    {
+      "name": "Jeidison Farias",
+      "email": "jeidison.farias@gmail.com"
     },
-    "require-dev": {
-        
-    },
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/",
-            "Tests\\": "tests/"
-        }
+    {
+      "name": "Paulo Cruz",
+      "email": "paulosscruz95@gmail.com"
     }
+  ],
+  "require": {
+    "php": ">=7"
+  },
+  "require-dev": {
+    "codeception/codeception": "^2.3",
+    "phpunit/phpunit": "^6.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Tests\\": "tests/"
+    }
+  }
 }
