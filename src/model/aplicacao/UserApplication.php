@@ -1,5 +1,7 @@
 <?php
 
+require './src/model/dao/UserDao.php';
+
 /**
  * User: jeidison
  * Date: 24/08/17
@@ -33,7 +35,7 @@ class UserApplication
 
     public function read()
     {
-
+        return $this->userDao->read();
     }
 
 }

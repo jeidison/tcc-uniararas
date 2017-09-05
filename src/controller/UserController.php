@@ -1,5 +1,7 @@
 <?php
 
+require './src/model/aplicacao/UserApplication.php';
+
 /**
  * User: jeidison
  * Date: 24/08/17
@@ -7,13 +9,11 @@
  */
 class UserController
 {
+    private $userApplication;
 
-    public static function allPerson()
+    function __construct()
     {
-
-
-
-        return
+        $this->userApplication = new UserApplication();
     }
 
     public function create()
@@ -33,7 +33,7 @@ class UserController
 
     public function read()
     {
-
+        return $this->userApplication->read();
     }
 
 }

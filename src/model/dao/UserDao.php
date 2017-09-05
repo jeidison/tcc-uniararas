@@ -19,14 +19,8 @@ class UserDao
         $this->connection = $this->connection();
     }
 
-    public function users()
-    {
-        return $this->connection->query(sqlUsers(), PDO::FETCH_ASSOC);
-    }
-
     public function create(User $user)
     {
-        //gravar
 
     }
 
@@ -42,7 +36,7 @@ class UserDao
 
     public function read()
     {
-
+        return $this->connection->query(sqlUsers(), PDO::FETCH_ASSOC);
     }
 
 }

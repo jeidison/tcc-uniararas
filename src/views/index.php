@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <?php require './src/model/dao/UserDao.php'; ?>
+    <?php require './src/controller/UserController.php'; ?>
     <meta charset="UTF-8">
     <title>TCC - Uniararas - CRUD</title>
     <meta charset="utf-8">
@@ -106,8 +106,8 @@
                         </thead>
                         <tbody>
                         <?php
-                        $userDao = new UserDao();
-                        $users = $userDao->users();
+                        $userDao = new UserController();
+                        $users   = $userDao->read();
                         foreach ($users as $user => $value): ?>
                             <tr>
                                 <td align="center">
@@ -148,7 +148,7 @@
                     <h4 class="modal-title">Cadastrar nova pessoa</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Some text in the modal.</p>
+                    <p>fazer form via ajax.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
