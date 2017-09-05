@@ -15,12 +15,13 @@
     "php": ">=7"
   },
   "require-dev": {
-    "codeception/codeception": "^2.3",
-    "phpunit/phpunit": "^6.3"
+    "codeception/codeception": "*",
+    "phpunit/phpunit": "*"
   },
   "autoload": {
     "psr-4": {
-      "App\\": "app/",
+      "Src\\": "src/",
+      "Src\\Utils\\": "src/utils/",
       "Tests\\": "tests/"
     }
   }

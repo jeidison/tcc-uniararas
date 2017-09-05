@@ -8,6 +8,14 @@
 class UserController
 {
 
+    public static function allPerson()
+    {
+
+
+
+        return
+    }
+
     public function create()
     {
 

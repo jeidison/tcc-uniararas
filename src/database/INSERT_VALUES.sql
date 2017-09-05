@@ -1,4 +1,4 @@
-INSERT INTO "user"(name,
+INSERT INTO users (name,
                    document,
                    sex,
                    date_birth,
