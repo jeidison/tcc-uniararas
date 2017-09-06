@@ -17,12 +17,12 @@ class ApplicationResult
         $this->success = $success;
     }
 
-    public static function forError($message)
+    public static function forError($message = "")
     {
         return new self($message, false);
     }
 
-    public static function forSuccess($message)
+    public static function forSuccess($message = "")
     {
         return new self($message, true);
     }

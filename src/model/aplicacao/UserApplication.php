@@ -1,6 +1,8 @@
 <?php
 
-require './src/modal/dao/UserDao.php';
+//require 'src/modal/dao/UserDao.php';
+require './src/model/validation/rules/UserRules.php';
+//require './src/model/validation/Validation.php';
 
 /**
  * User: jeidison
@@ -14,13 +16,16 @@ class UserApplication
 
     function __construct()
     {
-        $this->userDao = new UserDao();
+        //$this->userDao = new UserDao();
     }
 
     public function create(User $user)
     {
-        //validar
-
+        $userRules = new UserRules($user);
+        $userRules->setRules();
+        $Rules = $userRules->getRules();
+        $validation = new Validation($Rules);
+        return $validation->validate();
     }
 
     public function delete($id)

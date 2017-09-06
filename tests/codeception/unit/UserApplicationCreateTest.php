@@ -191,7 +191,7 @@ class UserApplicationCreateTest extends \Codeception\Test\Unit
     public function testCreateWithLargerDateBirth()
     {
         date_default_timezone_set('America/Sao_Paulo');
-        $date = date('Y-m-d', strtotime(' +1 day'));
+        $date = date('d-m-Y', strtotime(' +1 day'));
 
         $user = new User();
         $user->setName('AAAA AAAA AAAA');
