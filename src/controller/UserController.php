@@ -1,6 +1,6 @@
 <?php
 
-require './src/model/aplicacao/UserApplication.php';
+require '../model/aplicacao/UserApplication.php';
 
 /**
  * User: jeidison

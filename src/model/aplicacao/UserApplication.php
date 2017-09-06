@@ -1,6 +1,6 @@
 <?php
 
-require './src/model/dao/UserDao.php';
+require './src/modal/dao/UserDao.php';
 
 /**
  * User: jeidison

@@ -107,7 +107,7 @@
                         <tbody>
                         <?php
                         $userDao = new UserController();
-                        $users   = $userDao->read();
+                        $users = $userDao->read();
                         foreach ($users as $user => $value): ?>
                             <tr>
                                 <td align="center">
@@ -141,14 +141,25 @@
 <div class="modal fade" id="modalCadastro" role="dialog">
     <div class="modal-dialog">
 
-        <form action="">
+        <form action="src/utils/Helpers.php" method="post">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Cadastrar nova pessoa</h4>
                 </div>
                 <div class="modal-body">
-                    <p>fazer form via ajax.</p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="email">Email address:</label>
+                                <input type="email" class="form-control" id="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">Password:</label>
+                                <input type="password" class="form-control" id="pwd">
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -163,4 +174,30 @@
 </div>
 
 </body>
+
+<script type="application/javascript">
+    $(document).ready(function () {
+
+        $('a.delete').click(function (e) {
+            e.preventDefault();
+            var parent = $(this).parent();
+            $.ajax({
+                type: 'get',
+                url: 'jquery-record-delete.php',
+                data: 'ajax=1&delete=' + parent.attr('id').replace('record-', ''),
+                beforeSend: function () {
+                    parent.animate({'backgroundColor': '#fb6c6c'}, 300);
+                },
+                success: function () {
+                    parent.slideUp(300, function () {
+                        parent.remove();
+                    });
+                }
+            });
+        });
+
+    });
+
+</script>
+
 </html>

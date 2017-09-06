@@ -1,7 +1,7 @@
 <?php
 
 require 'Connecion.php';
-require './src/database/named-query.php';
+require '../entity/User.php';
 
 /**
  * User: jeidison
@@ -24,9 +24,21 @@ class UserDao
 
     }
 
-    public function delete()
+    public function delete($idUser)
     {
-
+        try {
+            $stmt = $this->connection->prepare("SELECT * FROM users WHERE id={$idUser}");
+            $stmt->execute();
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            if (count($result) <= 0) {
+                return ApplicationResult::forError("Usuário com ID: {$idUser} não encontrado.");
+            }
+            $sql = "DELETE FROM users WHERE id={$idUser}";
+            $this->connection->exec($sql);
+            return ApplicationResult::forSuccess("Usuário com ID: {$idUser} deletado com sucesso.");
+        } catch(Exception $e) {
+            return ApplicationResult::forError("Erro ao deletar Usuário com ID: {$idUser}. Mensagem: {$e->getMessage()}");
+        }
     }
 
     public function update()
@@ -36,7 +48,7 @@ class UserDao
 
     public function read()
     {
-        return $this->connection->query(sqlUsers(), PDO::FETCH_ASSOC);
+        return $this->connection->query('SELECT * FROM users', PDO::FETCH_ASSOC);
     }
 
 }
