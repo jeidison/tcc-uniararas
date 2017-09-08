@@ -1,7 +1,7 @@
 <?php
 
 //require 'src/modal/dao/UserDao.php';
-require './src/model/validation/rules/UserRules.php';
+//require './src/model/validation/rules/UserRules.php';
 //require './src/model/validation/Validation.php';
 
 /**
@@ -16,16 +16,19 @@ class UserApplication
 
     function __construct()
     {
-        //$this->userDao = new UserDao();
+        $this->userDao = new UserDao();
     }
 
     public function create(User $user)
     {
-        $userRules = new UserRules($user);
-        $userRules->setRules();
-        $Rules = $userRules->getRules();
-        $validation = new Validation($Rules);
-        return $validation->validate();
+//        $userRules = new UserRules($user);
+//        $userRules->setRules();
+//        $Rules = $userRules->getRules();
+//        $validation = new Validation($Rules);
+//        $validation = $validation->validate();
+//        var_dump($validation);
+//        die();
+        return $this->userDao->create($user);
     }
 
     public function delete($id)

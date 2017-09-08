@@ -1,6 +1,6 @@
 <?php
 
-require '../model/aplicacao/UserApplication.php';
+//require '../model/aplicacao/UserApplication.php';
 
 /**
  * User: jeidison
@@ -16,9 +16,9 @@ class UserController
         $this->userApplication = new UserApplication();
     }
 
-    public function create()
+    public function create(User $user)
     {
-
+        return $this->userApplication->create($user);
     }
 
     public function delete()

@@ -1,6 +1,6 @@
 <?php
 
-require './src/utils/RulesValidation.php';
+//require './src/utils/RulesValidation.php';
 
 class Validation
 {

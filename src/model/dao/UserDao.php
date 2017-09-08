@@ -1,7 +1,7 @@
 <?php
 
 require 'Connecion.php';
-require '../entity/User.php';
+//require '../entity/User.php';
 
 /**
  * User: jeidison
@@ -21,7 +21,24 @@ class UserDao
 
     public function create(User $user)
     {
-
+        try {
+            $reflect = new ReflectionClass($user);
+            $props = $reflect->getProperties(ReflectionProperty::IS_PRIVATE);
+            $attrQuery = "";
+            $valuesQuery = "";
+            foreach ($props as $prop => $value) {
+                $value->setAccessible(true);
+                $attrQuery .= $value->getName() . ",";
+                $valuesQuery .= '\'' . $value->getValue($user) . '\'' . ",";
+            }
+            $attrQuery = rtrim($attrQuery, ',');
+            $valuesQuery = rtrim($valuesQuery, ',');
+            $query = "INSERT INTO users (" . $attrQuery . ") VALUES (" . $valuesQuery . ");";
+            $this->connection->exec($query);
+            return ApplicationResult::forSuccess("Usuário {$user->getName()} inserido com sucesso.");
+        } catch (Exception $exception) {
+            return ApplicationResult::forError("Erro ao inserir usuário. mensagem: ".$exception->getMessage());
+        }
     }
 
     public function delete($idUser)
