@@ -15,7 +15,7 @@ class UserDeleteApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->delete(777);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testDeleteWithEnableStatus()
@@ -23,7 +23,7 @@ class UserDeleteApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->delete(1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
 }

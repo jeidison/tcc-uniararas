@@ -2,6 +2,14 @@
 
 use PHPUnit\Framework\TestCase;
 
+require_once __DIR__.'/../../src/model/entity/User.php';
+require_once __DIR__.'/../../src/model/dao/UserDao.php';
+require_once __DIR__.'/../../src/model/aplicacao/UserApplication.php';
+require_once __DIR__.'/../../src/controller/UserController.php';
+require_once __DIR__.'/../../src/model/validation/rules/UserRules.php';
+require_once __DIR__.'/../../src/model/validation/Validation.php';
+require_once __DIR__.'/../../src/utils/RulesValidation.php';
+
 /**
  * User: jeidison
  * Date: 24/08/17
@@ -22,9 +30,9 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertTrue($result->getSuccess());
 
     }
 
@@ -42,7 +50,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
 
     }
 
@@ -60,7 +68,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
 
     }
 
@@ -78,7 +86,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testCreateWithNameOneWord()
@@ -95,7 +103,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testCreateWithDocumentLessCharacters()
@@ -112,7 +120,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testCreateWithDocumentMoreCharacters()
@@ -129,7 +137,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testCreateWithNullDocument()
@@ -146,7 +154,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testCreateWithDocumentExists()
@@ -163,7 +171,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testCreateWithInvalidSex()
@@ -180,7 +188,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testCreateWithNullSex()
@@ -197,7 +205,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testCreateWithLargerDateBirth()
@@ -217,7 +225,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testCreateWithMinimumDateBirth()
@@ -234,7 +242,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testCreateWithDateBirthInvalidFormat()
@@ -251,7 +259,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testCreateWithNullDateBirth()
@@ -268,7 +276,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testCreateWithPhoneLessCharacters()
@@ -285,7 +293,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testCreateWithPhoneMoreCharacters()
@@ -302,7 +310,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testCreateWithEmailInvalidFormat()
@@ -319,7 +327,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testCreateWithNullEmail()
@@ -336,7 +344,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testCreateWithInvalidStatus()
@@ -353,7 +361,7 @@ class UserInsertApplicationTest extends TestCase
         $appUser = new UserApplication();
         $result = $appUser->create($user);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
 }

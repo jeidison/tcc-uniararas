@@ -12,44 +12,36 @@ class UserSearchApplicationTest extends TestCase
 
     public function testSearchWithAllParams()
     {
-        $searchParam = new SearchParam();
-        $searchParam->dhNasc = "2000-01-01";
-        $searchParam->document = "999999999";
         $appUser = new UserApplication();
-        $result = $appUser->search($searchParam);
+        $result = $appUser->read();
         $this->assertNotNull($result);
     }
 
     public function testSearchWithBirthDate()
     {
-        $searchParam = new SearchParam();
-        $searchParam->dhNasc = "2000-01-01";
         $appUser = new UserApplication();
-        $result = $appUser->search($searchParam);
+        $result = $appUser->read();
         $this->assertNotNull($result);
     }
 
     public function testSearchWithDocument()
     {
-        $searchParam = new SearchParam();
-        $searchParam->document = "999999999";
         $appUser = new UserApplication();
-        $result = $appUser->search($searchParam);
+        $result = $appUser->read();
         $this->assertNotNull($result);
     }
 
     public function testSearchWithOutParam()
     {
-        $searchParam = new SearchParam();
         $appUser = new UserApplication();
-        $result = $appUser->search($searchParam);
+        $result = $appUser->read();
         $this->assertNotNull($result);
     }
 
     public function testSearchWithParamsNull()
     {
         $appUser = new UserApplication();
-        $result = $appUser->search(null);
+        $result = $appUser->read();
         $this->assertNotNull($result);
     }
 

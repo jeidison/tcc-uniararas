@@ -9,12 +9,20 @@
          syntaxCheck="false"
          colors="true">
     <testsuites>
-        <testsuite name="HelloWorld Test Suite">
-            <directory>./tests/</directory>
-            <file>./tests/HelloWorldTest.php</file>
+        <testsuite name="Testes para o insert">
+            <directory>./tests/phpUnit/</directory>
+            <file>./tests/phpUnit/UserInsertApplicationTest.php</file>
+        </testsuite>
+        <testsuite name="Testes para o delete">
+            <directory>./tests/phpUnit/</directory>
+            <file>./tests/phpUnit/UserDeleteApplicationTest.php</file>
+        </testsuite>
+        <testsuite name="Testes para o search/read">
+            <directory>./tests/phpUnit/</directory>
+            <file>./tests/phpUnit/UserSearchApplicationTest.php</file>
         </testsuite>
     </testsuites>
     <php>
-        <var name="SOME_CONSTANT_CONFIG" value="Test Value" />
+        <var name="SOME_CONSTANT_CONFIG" value="testes TCC Uniararas" />
     </php>
 </phpunit>
