@@ -33,7 +33,7 @@ class UserApplication
 
     public function delete($id)
     {
-
+        return $this->userDao->delete($id);
     }
 
     public function update(User $user)

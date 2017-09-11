@@ -117,9 +117,10 @@
                                     <a class="btn btn-default">
                                         <em class="fa fa-pencil"></em>
                                     </a>
-                                    <a class="btn btn-danger">
+                                    <button value="<?php echo $value['id'] ?>"
+                                            class="btn btn-danger btn-delete">
                                         <em class="fa fa-trash"></em>
-                                    </a>
+                                    </button>
                                 </td>
                                 <td><?php echo $value['id'] ?></td>
                                 <td><?php echo $value['name'] ?></td>
@@ -138,7 +139,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- Modal -->
 <div class="modal fade" id="modalCadastro" role="dialog">
@@ -195,13 +195,12 @@
     </div>
 </div>
 
-</div>
-
 </body>
 
 <script type="application/javascript">
     $(document).ready(function () {
 
+        //cadastro
         $('#cadastrar').click(function (e) {
             e.preventDefault();
             var $form = $($('#form-cadastrar'));
@@ -212,15 +211,33 @@
                 url: 'src/utils/Helpers.php',
                 data: serializedData,
                 success: function (response) {
-                    var result = JSON.parse(response);
-                    if(alert(result.details)){
-                        window.location.reload()
-                    } else {
-                        window.location.reload()
-                    }
+                    alert(response.details);
+                    window.location.reload()
                 },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    var result = JSON.parse(errorThrown);
+                error: function (jqXHR, textStatus, errorThrown) {
+                    var result = jqXHR.responseJSON;
+                    alert(result.details);
+                }
+
+            });
+        });
+
+    });
+
+    //delete
+    $(document).ready(function () {
+
+        $('.btn-delete').click(function (e) {
+            $.ajax({
+                type: 'post',
+                url: 'src/utils/Helpers.php',
+                data: {is_delete:'true', id_user:this.value},
+                success: function (response) {
+                    alert(response.details);
+                    window.location.reload()
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    var result = jqXHR.responseJSON;
                     alert(result.details);
                 }
 

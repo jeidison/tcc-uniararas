@@ -30,9 +30,30 @@ if (isset($_POST['is_create'])) {
         }
     }
     $applicationResult = $userController->create($user);
+    header_remove();
+    header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
+    header('Content-Type: application/json');
+    if ($applicationResult->getSuccess()) {
+        http_response_code(200);
+        header('Status: 200');
+    } else {
+        http_response_code(500);
+        header('Status: 500');
+    }
     echo json_encode(["details" => $applicationResult->getDetails(), "success"=>$applicationResult->getSuccess()]);
 }
 
 if (isset($_POST['is_delete'])) {
-
+    $applicationResult = $userController->delete($_POST['id_user']);
+    header_remove();
+    header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
+    header('Content-Type: application/json');
+    if ($applicationResult->getSuccess()) {
+        http_response_code(200);
+        header('Status: 200');
+    } else {
+        http_response_code(500);
+        header('Status: 500');
+    }
+    echo json_encode(["details" => $applicationResult->getDetails(), "success"=>$applicationResult->getSuccess()]);
 }

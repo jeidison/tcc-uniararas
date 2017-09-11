@@ -21,9 +21,9 @@ class UserController
         return $this->userApplication->create($user);
     }
 
-    public function delete()
+    public function delete($idUser)
     {
-
+        return $this->userApplication->delete($idUser);
     }
 
     public function update()
