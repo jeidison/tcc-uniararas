@@ -58,14 +58,38 @@ class UserDao
         }
     }
 
-    public function update()
+    public function update(User $user)
     {
-
+      try {
+          $reflect = new ReflectionClass($user);
+          $props = $reflect->getProperties(ReflectionProperty::IS_PRIVATE);
+          $fieldsQuery = "";
+          foreach ($props as $prop => $value) {
+              $value->setAccessible(true);
+              $fieldsQuery .= $value->getName() . "=" . '\'' . $value->getValue($user) . '\'';
+          }
+          //$attrQuery = rtrim($attrQuery, ',');
+          //$valuesQuery = rtrim($valuesQuery, ',');
+          $query = "UPDATE users SET" . $fieldsQuery . ";";
+          //$this->connection->exec($query);
+          return ApplicationResult::forSuccess("OK");
+      } catch (Exception $exception) {
+          return ApplicationResult::forError("Erro ao inserir usuário. mensagem: ".$exception->getMessage());
+      }
     }
 
     public function read()
     {
         return $this->connection->query('SELECT * FROM users', PDO::FETCH_ASSOC);
+    }
+
+    public function find($idUser)
+    {
+        $result = $this->connection->query("SELECT * FROM users WHERE id={$idUser}", PDO::FETCH_ASSOC);
+         if (count($result) <= 0) {
+            return ApplicationResult::forError("Usuário com ID: {$idUser} não encontrado.");
+        }
+        return ApplicationResult::forSuccess("Ok", $result->fetch(PDO::FETCH_ASSOC));
     }
 
 }

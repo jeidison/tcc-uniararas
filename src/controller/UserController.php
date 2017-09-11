@@ -26,14 +26,19 @@ class UserController
         return $this->userApplication->delete($idUser);
     }
 
-    public function update()
+    public function update(User $user)
     {
-
+        return $this->userApplication->update($user);
     }
 
     public function read()
     {
         return $this->userApplication->read();
+    }
+
+    public function find($idUser)
+    {
+        return $this->userApplication->find($idUser);
     }
 
 }

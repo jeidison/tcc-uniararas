@@ -1,106 +1,118 @@
 <?php
 
-require 'ApplicationResult.php';
-
 class RulesValidation
 {
+
+  private $errors = array();
 
   function __construct()
   {
       #
   }
 
-  public static function validateIsNull($value)
+  public function getErros()
+  {
+      return $this->errors;
+  }
+
+  private function setErrors($message)
+  {
+      array_push($this->errors, $message);
+  }
+
+  public function validateIsNull($field, $value)
   {
       if (is_null($value) || $value == "")
       {
-        return ApplicationResult::forError(" está nulo.");
+        $this->setErrors("{$field} está nulo.");
       }
-    return ApplicationResult::forSuccess();
+    return true;
   }
 
-  public static function validateMinSize($value, $min = 1)
+  public function validateMinSize($field, $value, $min = 1)
   {
-      if (count($value) < $min)
+      if (strlen($value) < $min)
       {
-          return ApplicationResult::forError(" menor que {$min} caracteres.");
+          $this->setErrors("{$field} menor que {$min} caracteres.");
       }
-      return ApplicationResult::forSuccess();
+      return true;
   }
 
-  public static function validateMaxSize($value, $max = PHP_INT_MAX)
+  public function validateMaxSize($field, $value, $max = PHP_INT_MAX)
   {
-      if (count($value) > $max)
+      if (strlen($value) > $max)
       {
-          return ApplicationResult::forError(" maior que {$max} caracteres.");
+          $this->setErrors("{$field} maior que {$max} caracteres.");
       }
-      return ApplicationResult::forSuccess();
+      return true;
   }
 
-  public static function validateNumberOfWords($value)
+  public function validateNumberOfWords($field, $value)
   {
       if (str_word_count($value) <= 1)
       {
-          return ApplicationResult::forError(" contém apenas 1 palavra.");
+          $this->setErrors("{$field} contém apenas 1 palavra.");
       }
-      return ApplicationResult::forSuccess();
+      return true;
   }
 
-  public static function validateExactSize($value, $size = 1)
+  public function validateExactSize($field, $value, $size = 1)
   {
-      if (count($value) <> $size)
+      if (strlen($value) <> $size)
       {
-          return ApplicationResult::forError(" não contém {$sixe} caracteres.");
+          $this->setErrors("{$field} não contém {$sixe} caracteres.");
       }
-      return ApplicationResult::forSuccess();
+      return true;
   }
 
-  public static function validateValueList($value, Array $listValues)
+  public function validateValueList($field, $value, Array $listValues)
   {
       if (!in_array($value, $listValues))
       {
-          return ApplicationResult::forError(" contém um valor inválido.");
+          $this->setErrors("{$field} contém um valor inválido.");
       }
-      return ApplicationResult::forSuccess();
+      return true;
   }
 
-  public static function validateLargerDate($date)
+  public function validateLargerDate($field, $date)
   {
       date_default_timezone_set('America/Sao_Paulo');
       $currentDate = strtotime(date('d-m-Y'));
 
       if (strtotime($date) > $currentDate)
       {
-          return ApplicationResult::forError(" informada é maior que a data corrente.");
+          $this->setErrors("{$field} informada é maior que a data corrente.");
       }
-      return ApplicationResult::forSuccess();
+      return true;
   }
 
-  public static function validateMinDate($date, $minDate = "01/01/1900")
+  public function validateMinDate($field, $date, $minDate = "01/01/1900")
   {
-      if(strtotime($date) >= strtotime($minDate))
+      if(strtotime($date) <= strtotime($minDate))
       {
-          return ApplicationResult::forError(" informada é inferior a {$minDate}.");
+          $this->setErrors("{$field} informada é inferior a {$minDate}.");
       }
-      return ApplicationResult::forSuccess();
+      return true;
   }
 
-  public static function validateFormatDate($date, $format = "d-m-Y")
+  public function validateFormatDate($field, $date, $format = "Y-m-d")
   {
-      if (!date_format($date, $format) == $date)
+      $dateCreate = date_create($date);
+
+      if (date_format($dateCreate, $format) != $date)
       {
-          return ApplicationResult::forError(" informada não está no formato {$format}.");
+          $this->setErrors("{$field} informada não está no formato {$format}.");
       }
-      return ApplicationResult::forSuccess();
+      return true;
   }
 
-  public static function validateEmail($email)
+  public function validateEmail($field, $email)
   {
       if (!filter_var($email, FILTER_VALIDATE_EMAIL))
       {
-          return ApplicationResult::forError(" {$email} é inválido.");
+          $this->setErrors("{$field}: {$email} é inválido.");
       }
-      return ApplicationResult::forSuccess();
+      return true;
   }
 
 }

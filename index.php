@@ -114,9 +114,11 @@
                         foreach ($users as $user => $value): ?>
                             <tr>
                                 <td align="center">
-                                    <a class="btn btn-default">
+                                    <button data-toggle="modal" data-target="#modalEditar"
+                                            value="<?php echo $value['id'] ?>"
+                                            class="btn btn-primary btn-find">
                                         <em class="fa fa-pencil"></em>
-                                    </a>
+                                    </button>
                                     <button value="<?php echo $value['id'] ?>"
                                             class="btn btn-danger btn-delete">
                                         <em class="fa fa-trash"></em>
@@ -140,7 +142,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Cadastrar -->
 <div class="modal fade" id="modalCadastro" role="dialog">
     <div class="modal-dialog">
 
@@ -195,6 +197,61 @@
     </div>
 </div>
 
+<!-- Modal Editar -->
+<div class="modal fade" id="modalEditar" role="dialog">
+    <div class="modal-dialog">
+
+        <form action="src/utils/Helpers.php" method="post" id="form-atualizar">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Cadastrar nova pessoa</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <input type="hidden" name="is_update" value="true">
+                        <input type="hidden" name="status" value="ATIVO">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="name">Nome:</label>
+                                <input type="text" name="name" class="form-control" id="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="document">Documento:</label>
+                                <input type="text" name="document" class="form-control" id="document">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Sexo:</label>
+                                <select name="sex" id="sex" class="form-control">
+                                    <option value="F">FEMININO</option>
+                                    <option value="M">MASCULINO</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="date_birth">Nascimento:</label>
+                                <input type="date" name="date_birth" class="form-control" id="date_birth">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Telefone:</label>
+                                <input type="tel" class="form-control" name="phone" id="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    <button type="button" id="atualizar" class="btn btn-success">Atualizar</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
 </body>
 
 <script type="application/javascript">
@@ -218,21 +275,17 @@
                     var result = jqXHR.responseJSON;
                     alert(result.details);
                 }
-
             });
         });
 
-    });
-
-    //delete
-    $(document).ready(function () {
-
+        //delete
         $('.btn-delete').click(function (e) {
             $.ajax({
                 type: 'post',
                 url: 'src/utils/Helpers.php',
                 data: {is_delete:'true', id_user:this.value},
                 success: function (response) {
+                    console.log(response);
                     alert(response.details);
                     window.location.reload()
                 },
@@ -240,11 +293,54 @@
                     var result = jqXHR.responseJSON;
                     alert(result.details);
                 }
+            });
+        });
 
+        // find
+        $('.btn-find').click(function (e) {
+            $.ajax({
+                type: 'post',
+                url: 'src/utils/Helpers.php',
+                data: {is_find:'true', id_user:this.value},
+                success: function (response) {
+                    $('#modalEditar #name').val(response.data['name']);
+                    $('#modalEditar #document').val(response.data['document']);
+                    $('#modalEditar #sex').val(response.data['sex']);
+                    $('#modalEditar #date_birth').val(response.data['date_birth']);
+                    $('#modalEditar #phone').val(response.data['phone']);
+                    $('#modalEditar #email').val(response.data['email']);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    var result = jqXHR.responseJSON;
+                    alert(result.details);
+                }
+            });
+        });
+
+        // update
+        $('#atualizar').click(function (e) {
+            e.preventDefault();
+            var $form = $($('#form-atualizar'));
+            var serializedData = $form.serialize();
+            console.log(serializedData);
+            $.ajax({
+                type: 'post',
+                url: 'src/utils/Helpers.php',
+                data: serializedData,
+                success: function (response) {
+                    console.log(response);
+                    //window.location.reload()
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    var result = jqXHR.responseJSON;
+                    alert(result.details);
+                }
             });
         });
 
     });
+
+
 
 </script>
 

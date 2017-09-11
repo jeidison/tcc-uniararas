@@ -10,21 +10,23 @@ class ApplicationResult
 
     private $details;
     private $success; //boolean
+    private $data;
 
-    function __construct($details, $success)
+    function __construct($details, $success, $data = null)
     {
         $this->details = $details;
         $this->success = $success;
+        $this->data = $data;
     }
 
-    public static function forError($message = "")
+    public static function forError($message = "", $data = null)
     {
-        return new self($message, false);
+        return new self($message, false, $data);
     }
 
-    public static function forSuccess($message = "")
+    public static function forSuccess($message = "", $data = null)
     {
-        return new self($message, true);
+        return new self($message, true, $data);
     }
 
     public function getDetails()
@@ -47,4 +49,13 @@ class ApplicationResult
         $this->success = $success;
     }
 
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
 }

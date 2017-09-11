@@ -2,7 +2,7 @@
 
 //require 'src/modal/dao/UserDao.php';
 //require './src/model/validation/rules/UserRules.php';
-//require './src/model/validation/Validation.php';
+//require ('../validation/UserValidation.php');
 
 /**
  * User: jeidison
@@ -21,13 +21,13 @@ class UserApplication
 
     public function create(User $user)
     {
-//        $userRules = new UserRules($user);
-//        $userRules->setRules();
-//        $Rules = $userRules->getRules();
-//        $validation = new Validation($Rules);
-//        $validation = $validation->validate();
-//        var_dump($validation);
-//        die();
+        $userValidation = new UserValidation($user);
+        $resultValidation = $userValidation->validate();
+
+        if (!$resultValidation->getSuccess())
+        {
+            return $resultValidation;
+        }
         return $this->userDao->create($user);
     }
 
@@ -38,12 +38,24 @@ class UserApplication
 
     public function update(User $user)
     {
+        $userValidation = new UserValidation($user);
+        $resultValidation = $userValidation->validate();
 
+        if (!$resultValidation->getSuccess())
+        {
+            return $resultValidation;
+        }
+        return $this->userDao->update($user);
     }
 
     public function read()
     {
         return $this->userDao->read();
+    }
+
+    public function find($idUser)
+    {
+        return $this->userDao->find($idUser);
     }
 
 }
