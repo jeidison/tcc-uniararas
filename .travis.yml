@@ -12,7 +12,13 @@ services:
   - postgresql
 
 before_script:
-  - psql -c 'create database tcc' -U postgres
+  - psql -U postgres < src/database/CREATE_DATABASE.sql
+  - psql -U postgres -d "tcc-uniararas" < src/database/CREATE_DATABASE.sql
+  - psql -U postgres -d "tcc-uniararas" < src/database/CREATE_TABLE.sql
+  - psql -U postgres -d "tcc-uniararas" < src/database/INSERT_VALUES.sql
 
 script:
-  - php codecept run unit
+  - php codecept run unit --coverage --coverage-xml
+
+after_script:
+  - php vendor/bin/coveralls -v

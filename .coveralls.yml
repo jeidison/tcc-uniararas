@@ -1,1 +1,3 @@
 repo_token: V3ko3xmDmEUwgcrcB4rF8A5OU2JHiJl1T
+coverage_clover: tests/codeception/_output/coverage.xml 
+json_path: tests/codeception/_output/coverage.serialized
