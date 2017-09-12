@@ -12,8 +12,8 @@ services:
   - postgresql
 
 before_script:
+  - composer require php-coveralls/php-coveralls
   - psql -U postgres < src/database/CREATE_DATABASE.sql
-  - psql -U postgres -d "tcc-uniararas" < src/database/CREATE_DATABASE.sql
   - psql -U postgres -d "tcc-uniararas" < src/database/CREATE_TABLE.sql
   - psql -U postgres -d "tcc-uniararas" < src/database/INSERT_VALUES.sql
 
