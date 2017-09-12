@@ -41,7 +41,7 @@ class UserValidation
       $Rules->validateIsNull("Data de Nascimento", $this->user->getDateBirth());
       $Rules->validateLargerDate("Data de Nascimento", $this->user->getDateBirth());
       $Rules->validateFormatDate("Data de Nascimento",$this->user->getDateBirth(), "Y-m-d");
-      $Rules->validateMinDate("Data de Nascimento", $this->user->getDateBirth(), "01/01/1990");
+      $Rules->validateMinDate("Data de Nascimento", $this->user->getDateBirth(), "01/01/1900");
       // Validação do Telefone
       $Rules->validateExactSize("Telefone", $this->user->getPhone(),  11);
       // Validação do Email

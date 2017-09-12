@@ -210,7 +210,8 @@
                 <div class="modal-body">
                     <div class="row">
                         <input type="hidden" name="is_update" value="true">
-                        <input type="hidden" name="status" value="ATIVO">
+                        <input type="hidden" id="id" name="id" value="">
+                        <input type="hidden" id="status" name="status" value="ATIVO">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="name">Nome:</label>
@@ -269,7 +270,7 @@
                 data: serializedData,
                 success: function (response) {
                     alert(response.details);
-                    window.location.reload()
+                    window.location.reload();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     var result = jqXHR.responseJSON;
@@ -309,6 +310,7 @@
                     $('#modalEditar #date_birth').val(response.data['date_birth']);
                     $('#modalEditar #phone').val(response.data['phone']);
                     $('#modalEditar #email').val(response.data['email']);
+                    $('#modalEditar #id').val(response.data['id']);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     var result = jqXHR.responseJSON;
@@ -328,8 +330,8 @@
                 url: 'src/utils/Helpers.php',
                 data: serializedData,
                 success: function (response) {
-                    console.log(response);
-                    //window.location.reload()
+                  alert(response.details);
+                  window.location.reload();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     var result = jqXHR.responseJSON;

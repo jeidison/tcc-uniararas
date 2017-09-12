@@ -36,7 +36,7 @@ class UserApplication
         return $this->userDao->delete($id);
     }
 
-    public function update(User $user)
+    public function update(User $user, $idUser)
     {
         $userValidation = new UserValidation($user);
         $resultValidation = $userValidation->validate();
@@ -45,7 +45,7 @@ class UserApplication
         {
             return $resultValidation;
         }
-        return $this->userDao->update($user);
+        return $this->userDao->update($user, $idUser);
     }
 
     public function read()

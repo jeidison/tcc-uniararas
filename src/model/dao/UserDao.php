@@ -22,6 +22,13 @@ class UserDao
     public function create(User $user)
     {
         try {
+            $sql = "SELECT * FROM users WHERE document = '{$user->getDocument()}'";
+            $resultQuery = $this->connection->query($sql, PDO::FETCH_ASSOC);
+            $result = $resultQuery->fetchAll(PDO::FETCH_ASSOC);
+
+            if (count($result) >= 1) {
+                return ApplicationResult::forError("Já existe um usuário cadastrado com documento: " . $user->getDocument() . ".");
+            }
             $reflect = new ReflectionClass($user);
             $props = $reflect->getProperties(ReflectionProperty::IS_PRIVATE);
             $attrQuery = "";
@@ -44,9 +51,9 @@ class UserDao
     public function delete($idUser)
     {
         try {
-            $stmt = $this->connection->prepare("SELECT * FROM users WHERE id={$idUser}");
-            $stmt->execute();
-            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $resultQuery = $this->connection->query("SELECT * FROM users WHERE id={$idUser}", PDO::FETCH_ASSOC);
+            $result = $resultQuery->fetchAll(PDO::FETCH_ASSOC);
+
             if (count($result) <= 0) {
                 return ApplicationResult::forError("Usuário com ID: {$idUser} não encontrado.");
             }
@@ -58,23 +65,31 @@ class UserDao
         }
     }
 
-    public function update(User $user)
+    public function update(User $user, $idUser)
     {
       try {
+          $resultQuery = $this->connection->query("SELECT * FROM users WHERE id={$idUser}", PDO::FETCH_ASSOC);
+          $result = $resultQuery->fetchAll(PDO::FETCH_ASSOC);
+          if (count($result) <= 0) {
+              return ApplicationResult::forError("Usuário com ID: {$idUser} não encontrado.");
+          }
           $reflect = new ReflectionClass($user);
           $props = $reflect->getProperties(ReflectionProperty::IS_PRIVATE);
           $fieldsQuery = "";
+          $endArray = end($props);
           foreach ($props as $prop => $value) {
               $value->setAccessible(true);
-              $fieldsQuery .= $value->getName() . "=" . '\'' . $value->getValue($user) . '\'';
+              $fieldsQuery .= $value->getName() . " = " . '\'' . $value->getValue($user) . '\'';
+              if ($endArray->name != $value->getName())
+              {
+                  $fieldsQuery .= ', ';
+              }
           }
-          //$attrQuery = rtrim($attrQuery, ',');
-          //$valuesQuery = rtrim($valuesQuery, ',');
-          $query = "UPDATE users SET" . $fieldsQuery . ";";
-          //$this->connection->exec($query);
-          return ApplicationResult::forSuccess("OK");
+          $query = "UPDATE users SET " . $fieldsQuery . " WHERE id = " . $idUser . ";";
+          $this->connection->exec($query);
+          return ApplicationResult::forSuccess("Usuário com ID: {$idUser} atualizado com sucesso.");
       } catch (Exception $exception) {
-          return ApplicationResult::forError("Erro ao inserir usuário. mensagem: ".$exception->getMessage());
+          return ApplicationResult::forError($query . "Erro ao atualizar usuário. mensagem: ".$exception->getMessage());
       }
     }
 

@@ -60,7 +60,7 @@ class RulesValidation
   {
       if (strlen($value) <> $size)
       {
-          $this->setErrors("{$field} não contém {$sixe} caracteres.");
+          $this->setErrors("{$field} não contém {$size} caracteres.");
       }
       return true;
   }

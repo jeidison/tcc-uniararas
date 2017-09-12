@@ -28,9 +28,17 @@ if (isset($_POST['is_find'])) {
 if (isset($_POST['is_update'])) {
   $user    = new User();
   $reflect = new ReflectionClass($user);
+  $idUser = "";
   foreach ($_POST as $key => $value) {
 
       if ($key == 'is_update') {
+          unset($key);
+          continue;
+      }
+
+      if ($key == "id")
+      {
+          $idUser = $value;
           unset($key);
           continue;
       }
@@ -41,11 +49,11 @@ if (isset($_POST['is_update'])) {
           $field->setValue($user, $value);
       }
   }
-  $applicationResult = $userController->update($user);
+  $applicationResult = $userController->update($user, $idUser);
   header_remove();
   header("Cache-Control: no-transform,public,max-age=300,s-maxage=900");
   header('Content-Type: application/json');
-  /*if ($applicationResult->getSuccess()) {
+  if ($applicationResult->getSuccess()) {
       http_response_code(200);
       header('Status: 200');
   } else {
@@ -53,10 +61,8 @@ if (isset($_POST['is_update'])) {
       header('Status: 500');
   }
   echo json_encode(["details" => $applicationResult->getDetails(), "success"=>$applicationResult->getSuccess()]);
-  */
-  http_response_code(200);
-  header('Status: 200');
-  echo json_encode(["result" => $applicationResult]);
+
+
 }
 
 if (isset($_POST['is_create'])) {

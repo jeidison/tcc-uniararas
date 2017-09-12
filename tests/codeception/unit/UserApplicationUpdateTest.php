@@ -1,5 +1,12 @@
 <?php
 
+require_once __DIR__.'/../../../src/model/entity/User.php';
+require_once __DIR__.'/../../../src/model/dao/UserDao.php';
+require_once __DIR__.'/../../../src/model/aplicacao/UserApplication.php';
+require_once __DIR__.'/../../../src/controller/UserController.php';
+require_once __DIR__.'/../../../src/model/validation/UserValidation.php';
+require_once __DIR__.'/../../../src/utils/RulesValidation.php';
+require_once __DIR__.'/../../../src/utils/ApplicationResult.php';
 
 class UserApplicationUpdateTest extends \Codeception\Test\Unit
 {
@@ -28,9 +35,9 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
 
     }
 
@@ -46,9 +53,9 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
 
     }
 
@@ -64,9 +71,9 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithNameOneWord()
@@ -81,9 +88,9 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithDocumentLessCharacters()
@@ -98,9 +105,9 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithDocumentMoreCharacters()
@@ -115,9 +122,9 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithNullDocument()
@@ -132,9 +139,9 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithDocumentExists()
@@ -149,9 +156,9 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithInvalidSex()
@@ -166,9 +173,9 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithNullSex()
@@ -183,9 +190,9 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithLargerDateBirth()
@@ -203,9 +210,9 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithMinimumDateBirth()
@@ -220,9 +227,9 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithDateBirthInvalidFormat()
@@ -237,9 +244,9 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithNullDateBirth()
@@ -254,9 +261,9 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithPhoneLessCharacters()
@@ -271,9 +278,9 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithPhoneMoreCharacters()
@@ -288,9 +295,9 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithEmailInvalidFormat()
@@ -305,9 +312,9 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithNullEmail()
@@ -322,9 +329,9 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithInvalidStatus()
@@ -339,8 +346,8 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('AAAAAA');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 }
