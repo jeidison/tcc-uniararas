@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/../../../src/model/dao/Connection.php';
+//require_once __DIR__.'/../../../src/model/dao/Connection.php';
 
 class ConnectionTest extends \Codeception\Test\Unit
 {
