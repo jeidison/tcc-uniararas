@@ -20,5 +20,5 @@ before_script:
 script:
   - php codecept run unit --coverage --coverage-xml
 
-after_script:
+after_success:
   - php vendor/bin/coveralls -v

@@ -1,12 +1,12 @@
 <?php
 
-//require_once __DIR__.'/../../../src/model/dao/Connection.php';
+require __DIR__.'/../../../src/model/dao/Connection.php';
 
 class ConnectionTest extends \Codeception\Test\Unit
 {
     use Connection;
 
-    public function testConnectionInvalidPassword()
+    public function testConnectionWithInvalidPassword()
     {
         $this->setDbpass('invalidaPassword');
         $connection = $this->connection();
