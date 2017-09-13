@@ -13,7 +13,7 @@ trait Connection
     private $dbname = 'tcc-uniararas';
     private $host   = 'localhost';
     private $dbuser = 'postgres';
-    private $dbpass = 'postgres';
+    private $dbpass = 'postgress';
 
     public function connection() {
         try {
@@ -22,6 +22,7 @@ trait Connection
             return $conn;
         } catch(PDOException $e) {
             echo "Connection failed: " . $e->getMessage();
+            return $e->getMessage();
         }
     }
 
