@@ -13,7 +13,7 @@ trait Connection
     private $dbname = 'tcc-uniararas';
     private $host   = 'localhost';
     private $dbuser = 'postgres';
-    private $dbpass = 'postgress';
+    private $dbpass = 'postgres';
 
     public function connection() {
         try {
