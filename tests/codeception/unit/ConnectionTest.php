@@ -11,6 +11,6 @@ class ConnectionTest extends \Codeception\Test\Unit
         $this->setDbpass('invalidaPassword');
         $connection = $this->connection();
         $this->assertNotNull($connection);
-        $this->assertTrue(is_string($connection));
+        $this->assertTrue(is_string($connection), gettype($connection));
     }
 }
