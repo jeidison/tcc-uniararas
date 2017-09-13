@@ -22,11 +22,17 @@ trait Connection
         }
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDbname()
     {
         return $this->dbname;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function setDbname($dbname)
     {
         $this->dbname = $dbname;
@@ -34,11 +40,17 @@ trait Connection
         return $this;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getHost()
     {
         return $this->host;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function setHost($host)
     {
         $this->host = $host;
@@ -46,11 +58,17 @@ trait Connection
         return $this;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDbuser()
     {
         return $this->dbuser;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function setDbuser($dbuser)
     {
         $this->dbuser = $dbuser;
@@ -58,11 +76,17 @@ trait Connection
         return $this;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDbpass()
     {
         return $this->dbpass;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function setDbpass($dbpass)
     {
         $this->dbpass = $dbpass;
