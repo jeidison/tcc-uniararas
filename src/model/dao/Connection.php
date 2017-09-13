@@ -21,7 +21,7 @@ trait Connection
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $conn;
         } catch(PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
+            //echo "Connection failed: " . $e->getMessage();
             return $e->getMessage();
         }
     }
