@@ -5,7 +5,7 @@ require __DIR__.'/../../../src/model/dao/Connection.php';
 
 class ConnectionTest extends \Codeception\Test\Unit
 {
-    use Connection;
+    use Connection as ConnectionDB;
 
     public function testConnectionWithInvalidPassword()
     {
