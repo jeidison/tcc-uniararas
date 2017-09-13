@@ -11,6 +11,6 @@ class ConnectionTest extends \Codeception\Test\Unit
         $this->setDbname('invalid-name');
         $connection = $this->connection();
         $this->assertNotNull($connection);
-        $this->assertTrue(is_string($connection), get_class($connection));
+        $this->assertTrue(is_string($connection), gettype($connection));
     }
 }
