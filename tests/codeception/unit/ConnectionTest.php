@@ -1,7 +1,7 @@
 <?php
 
-require __DIR__.'/../../../src/model/dao/Connection.php';
 namespace testeDao;
+require __DIR__.'/../../../src/model/dao/Connection.php';
 
 class ConnectionTest extends \Codeception\Test\Unit
 {
