@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(0);
+@ini_set('display_errors', 0);
+
 /**
  * User: jeidison
  * Date: 04/09/17
@@ -10,7 +13,7 @@ trait Connection
     private $dbname = 'tcc-uniararas';
     private $host   = 'localhost';
     private $dbuser = 'postgres';
-    private $dbpass = 'postgres';
+    private $dbpass = 'postgres555';
 
     public function connection() {
         try {
