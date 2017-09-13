@@ -1,7 +1,6 @@
 <?php
 
-require 'Connecion.php';
-//require '../entity/User.php';
+require 'Connection.php';
 
 /**
  * User: jeidison
