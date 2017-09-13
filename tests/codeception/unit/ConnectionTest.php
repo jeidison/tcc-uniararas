@@ -6,9 +6,9 @@ class ConnectionTest extends \Codeception\Test\Unit
 {
     use Connection;
 
-    public function testConnectionWithInvalidPassword()
+    public function testConnectionWithInvalidDatabaseName()
     {
-        $this->setDbpass('invalidaPassword');
+        $this->setDbname('invalid-name');
         $connection = $this->connection();
         $this->assertNotNull($connection);
         $this->assertTrue(is_string($connection), get_class($connection));
