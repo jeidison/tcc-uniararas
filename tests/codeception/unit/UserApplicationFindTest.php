@@ -8,7 +8,7 @@ require_once __DIR__.'/../../../src/model/validation/UserValidation.php';
 require_once __DIR__.'/../../../src/utils/RulesValidation.php';
 require_once __DIR__.'/../../../src/utils/ApplicationResult.php';
 
-class UserApplicationReadTest extends \Codeception\Test\Unit
+class UserApplicationFindTest extends \Codeception\Test\Unit
 {
     /**
      * @var \UnitTester
@@ -23,11 +23,20 @@ class UserApplicationReadTest extends \Codeception\Test\Unit
     {
     }
 
-    public function testReadUsers()
+    public function testFind()
     {
         $userDao = new UserController();
-        $users = $userDao->read();
+        $users = $userDao->find(1);
         $this->assertNotNull($users);
-        $this->assertGreaterThanOrEqual(1, count($users));
+        $this->assertEquals(1, count($users));
+    }
+
+    public function testFindUserNotExists()
+    {
+        $userDao = new UserController();
+        $users = $userDao->find(777);
+        $this->assertNotNull($users);
+        $this->assertInstanceOf('ApplicationResult', $users);
+        $this->assertFalse($users->getSuccess(), $users->getDetails());
     }
 }

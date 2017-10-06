@@ -23,19 +23,20 @@ class UserApplicationDeleteTest extends \Codeception\Test\Unit
     {
     }
 
-    public function testDeleteWithUserNotExists()
+    public function testDeleteUserNotExists()
     {
         $appUser = new UserApplication();
         $result = $appUser->delete(777);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
-    }/*
+    }
 
-    /*public function testDeleteWithEnableStatus()
+    public function testDeleteUserExists()
     {
         $appUser = new UserApplication();
-        $result = $appUser->delete(1);
+        $result = $appUser->delete(3);
         $this->assertNotNull($result);
-        $this->assertFalse($result->getSuccess());
-    }*/
+        $this->assertInstanceOf('ApplicationResult', $result);
+        $this->assertTrue($result->getSuccess(), $result->getDetails());
+    }
 }

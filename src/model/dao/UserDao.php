@@ -1,7 +1,6 @@
 <?php
 
-require 'Connecion.php';
-//require '../entity/User.php';
+require 'Connection.php';
 
 /**
  * User: jeidison
@@ -100,11 +99,12 @@ class UserDao
 
     public function find($idUser)
     {
-        $result = $this->connection->query("SELECT * FROM users WHERE id={$idUser}", PDO::FETCH_ASSOC);
-         if (count($result) <= 0) {
+        $resultQuery = $this->connection->query("SELECT * FROM users WHERE id={$idUser}", PDO::FETCH_ASSOC);
+        $result = $resultQuery->fetchAll(PDO::FETCH_ASSOC);
+        if (count($result) <= 0) {
             return ApplicationResult::forError("Usuário com ID: {$idUser} não encontrado.");
         }
-        return ApplicationResult::forSuccess("Ok", $result->fetch(PDO::FETCH_ASSOC));
+        return ApplicationResult::forSuccess("Ok", $result);
     }
 
 }

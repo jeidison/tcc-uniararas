@@ -23,6 +23,42 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
     {
     }
 
+    public function testReturnSuccessUpdate()
+    {
+        $user = new User();
+        $user->setName('AAAAA AAAAA AAAAA AAAAA');
+        $user->setDocument('22222222222');
+        $user->setSex('M');
+        $user->setDateBirth('2017-01-01');
+        $user->setPhone('19999999999');
+        $user->setEmail('teste@uniararas.com.br');
+        $user->setStatus('ATIVO');
+
+        $appUser = new UserApplication();
+        $result = $appUser->update($user, 1);
+        $this->assertNotNull($result);
+        $this->assertInstanceOf('ApplicationResult', $result);
+        $this->assertTrue($result->getSuccess(), $result->getDetails());
+    }
+
+    public function testReturnFailureCreate()
+    {
+        $user = new User();
+        $user->setName('AAAAA AAAAA AAAAA AAAAA');
+        $user->setDocument('22222222222');
+        $user->setSex('M');
+        $user->setDateBirth('2017-01-01');
+        $user->setPhone('19999999999');
+        $user->setEmail('teste@uniararas.com.br');
+        $user->setStatus('ATIVO');
+
+        $appUser = new UserApplication();
+        $result = $appUser->update($user, 777);
+        $this->assertNotNull($result);
+        $this->assertInstanceOf('ApplicationResult', $result);
+        $this->assertFalse($result->getSuccess(), $result->getDetails());
+    }
+
     public function testUpdateWithLongName()
     {
         $user = new User();
