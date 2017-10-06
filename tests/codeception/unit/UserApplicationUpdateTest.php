@@ -350,4 +350,21 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }
+
+    public function testUpdateWithInvalidIdType()
+    {
+        $user = new User();
+        $user->setName('AAAA AAAA AAAA');
+        $user->setDocument('11111111111');
+        $user->setSex('M');
+        $user->setDateBirth('01/01/2017');
+        $user->setPhone('19999999999');
+        $user->setEmail('teste@uniararas.com.br');
+        $user->setStatus('AAAAAA');
+
+        $appUser = new UserApplication();
+        $result = $appUser->update($user, 'asdasd');
+        $this->assertNotNull($result);
+        $this->assertFalse($result->getSuccess());
+    }
 }
