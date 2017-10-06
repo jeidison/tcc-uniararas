@@ -66,7 +66,6 @@ class UserDao
 
     public function update(User $user, $idUser)
     {
-      try {
           $resultQuery = $this->connection->query("SELECT * FROM users WHERE id={$idUser}", PDO::FETCH_ASSOC);
           $result = $resultQuery->fetchAll(PDO::FETCH_ASSOC);
           if (count($result) <= 0) {
@@ -87,9 +86,7 @@ class UserDao
           $query = "UPDATE users SET " . $fieldsQuery . " WHERE id = " . $idUser . ";";
           $this->connection->exec($query);
           return ApplicationResult::forSuccess("Usuário com ID: {$idUser} atualizado com sucesso.");
-      } catch (Exception $exception) {
-          return ApplicationResult::forError($query . "Erro ao atualizar usuário. mensagem: ".$exception->getMessage());
-      }
+
     }
 
     public function read()
