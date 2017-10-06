@@ -399,7 +399,7 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $user->setStatus('AAAAAA');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user, 'asdasd');
+        $result = $appUser->update($user, '');
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }

@@ -39,4 +39,13 @@ class UserApplicationDeleteTest extends \Codeception\Test\Unit
         $this->assertInstanceOf('ApplicationResult', $result);
         $this->assertTrue($result->getSuccess(), $result->getDetails());
     }
+
+    public function testDeleteWithInvalidIdType()
+    {
+        $appUser = new UserApplication();
+        $result = $appUser->delete('');
+        $this->assertNotNull($result);
+        $this->assertInstanceOf('ApplicationResult', $result);
+        $this->assertTrue($result->getSuccess(), $result->getDetails());
+    }
 }
