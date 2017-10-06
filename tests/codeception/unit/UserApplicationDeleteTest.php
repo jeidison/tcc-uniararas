@@ -46,6 +46,6 @@ class UserApplicationDeleteTest extends \Codeception\Test\Unit
         $result = $appUser->delete('');
         $this->assertNotNull($result);
         $this->assertInstanceOf('ApplicationResult', $result);
-        $this->assertTrue($result->getSuccess(), $result->getDetails());
+        $this->assertFalse($result->getSuccess(), $result->getDetails());
     }
 }

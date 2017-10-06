@@ -401,6 +401,7 @@ class UserApplicationUpdateTest extends \Codeception\Test\Unit
         $appUser = new UserApplication();
         $result = $appUser->update($user, '');
         $this->assertNotNull($result);
-        $this->assertFalse($result->getSuccess());
+        $this->assertInstanceOf('ApplicationResult', $result);
+        $this->assertFalse($result->getSuccess(), $result->getDetails());
     }
 }
