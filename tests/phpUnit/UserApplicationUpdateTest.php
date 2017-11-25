@@ -1,41 +1,65 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
+require_once __DIR__.'/../../../src/model/entity/User.php';
+require_once __DIR__.'/../../../src/model/dao/UserDao.php';
+require_once __DIR__.'/../../../src/model/aplicacao/UserApplication.php';
+require_once __DIR__.'/../../../src/controller/UserController.php';
+require_once __DIR__.'/../../../src/model/validation/UserValidation.php';
+require_once __DIR__.'/../../../src/utils/RulesValidation.php';
+require_once __DIR__.'/../../../src/utils/ApplicationResult.php';
 
-require_once __DIR__.'/../../src/model/entity/User.php';
-require_once __DIR__.'/../../src/model/dao/UserDao.php';
-require_once __DIR__.'/../../src/model/aplicacao/UserApplication.php';
-require_once __DIR__.'/../../src/controller/UserController.php';
-require_once __DIR__.'/../../src/model/validation/UserValidation.php';
-require_once __DIR__.'/../../src/utils/RulesValidation.php';
-
-/**
- * User: jeidison
- * Date: 24/08/17
- * Time: 20:09
- */
-class UserInsertApplicationTest extends TestCase
+class UserApplicationUpdateTest extends PHPUnit\Framework\TestCase
 {
+    /**
+     * @var \UnitTester
+     */
+    protected $tester;
 
-    public function testCreateSuccess()
+    protected function _before()
     {
-        $user = new User();
-        $user->setName('AAAAA AAAAA');
-        $user->setDocument('11111111111');
-        $user->setSex('M');
-        $user->setDateBirth('01/01/2017');
-        $user->setPhone('19999999999');
-        $user->setEmail('teste@uniararas.com.br');
-        $user->setStatus('INATIVO');
-
-        $appUser = new UserApplication();
-        $result = $appUser->create($user);
-        $this->assertNotNull($result);
-        $this->assertTrue($result->getSuccess());
-
     }
 
-    public function testCreateWithLongName()
+    protected function _after()
+    {
+    }
+
+    public function testReturnSuccessUpdate()
+    {
+        $user = new User();
+        $user->setName('AAAAA AAAAA AAAAA AAAAA');
+        $user->setDocument('22222222222');
+        $user->setSex('M');
+        $user->setDateBirth('2017-01-01');
+        $user->setPhone('19999999999');
+        $user->setEmail('teste@uniararas.com.br');
+        $user->setStatus('ATIVO');
+
+        $appUser = new UserApplication();
+        $result = $appUser->update($user, 1);
+        $this->assertNotNull($result);
+        $this->assertInstanceOf('ApplicationResult', $result);
+        $this->assertTrue($result->getSuccess(), $result->getDetails());
+    }
+
+    public function testReturnFailureCreate()
+    {
+        $user = new User();
+        $user->setName('AAAAA AAAAA AAAAA AAAAA');
+        $user->setDocument('22222222222');
+        $user->setSex('M');
+        $user->setDateBirth('2017-01-01');
+        $user->setPhone('19999999999');
+        $user->setEmail('teste@uniararas.com.br');
+        $user->setStatus('ATIVO');
+
+        $appUser = new UserApplication();
+        $result = $appUser->update($user, 777);
+        $this->assertNotNull($result);
+        $this->assertInstanceOf('ApplicationResult', $result);
+        $this->assertFalse($result->getSuccess(), $result->getDetails());
+    }
+
+    public function testUpdateWithLongName()
     {
         $user = new User();
         $user->setName('AAAAA AAAAA AAAAA AAAAA AAAAA AAAAA');
@@ -47,13 +71,13 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
 
     }
 
-    public function testCreateWithShortName()
+    public function testUpdateWithShortName()
     {
         $user = new User();
         $user->setName('AA A');
@@ -65,13 +89,13 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
 
     }
 
-    public function testCreateWithNullName()
+    public function testUpdateWithNullName()
     {
         $user = new User();
         $user->setName(null);
@@ -83,12 +107,12 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }
 
-    public function testCreateWithNameOneWord()
+    public function testUpdateWithNameOneWord()
     {
         $user = new User();
         $user->setName('AAAAAAA');
@@ -100,12 +124,12 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }
 
-    public function testCreateWithDocumentLessCharacters()
+    public function testUpdateWithDocumentLessCharacters()
     {
         $user = new User();
         $user->setName('AAAA AAAA AAAA');
@@ -117,12 +141,12 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }
 
-    public function testCreateWithDocumentMoreCharacters()
+    public function testUpdateWithDocumentMoreCharacters()
     {
         $user = new User();
         $user->setName('AAAA AAAA AAAA');
@@ -134,12 +158,12 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }
 
-    public function testCreateWithNullDocument()
+    public function testUpdateWithNullDocument()
     {
         $user = new User();
         $user->setName('AAAA AAAA AAAA');
@@ -151,12 +175,12 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }
 
-    public function testCreateWithDocumentExists()
+    public function testUpdateWithDocumentExists()
     {
         $user = new User();
         $user->setName('AAAA AAAA AAAA');
@@ -168,12 +192,12 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }
 
-    public function testCreateWithInvalidSex()
+    public function testUpdateWithInvalidSex()
     {
         $user = new User();
         $user->setName('AAAA AAAA AAAA');
@@ -185,12 +209,12 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }
 
-    public function testCreateWithNullSex()
+    public function testUpdateWithNullSex()
     {
         $user = new User();
         $user->setName('AAAA AAAA AAAA');
@@ -202,12 +226,12 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }
 
-    public function testCreateWithLargerDateBirth()
+    public function testUpdateWithLargerDateBirth()
     {
         date_default_timezone_set('America/Sao_Paulo');
         $date = date('Y-m-d', strtotime(' +1 day'));
@@ -222,12 +246,12 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }
 
-    public function testCreateWithMinimumDateBirth()
+    public function testUpdateWithMinimumDateBirth()
     {
         $user = new User();
         $user->setName('AAAA AAAA AAAA');
@@ -239,12 +263,12 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }
 
-    public function testCreateWithDateBirthInvalidFormat()
+    public function testUpdateWithDateBirthInvalidFormat()
     {
         $user = new User();
         $user->setName('AAAA AAAA AAAA');
@@ -256,12 +280,12 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }
 
-    public function testCreateWithNullDateBirth()
+    public function testUpdateWithNullDateBirth()
     {
         $user = new User();
         $user->setName('AAAA AAAA AAAA');
@@ -273,12 +297,12 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }
 
-    public function testCreateWithPhoneLessCharacters()
+    public function testUpdateWithPhoneLessCharacters()
     {
         $user = new User();
         $user->setName('AAAA AAAA AAAA');
@@ -290,12 +314,12 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }
 
-    public function testCreateWithPhoneMoreCharacters()
+    public function testUpdateWithPhoneMoreCharacters()
     {
         $user = new User();
         $user->setName('AAAA AAAA AAAA');
@@ -307,12 +331,12 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }
 
-    public function testCreateWithEmailInvalidFormat()
+    public function testUpdateWithEmailInvalidFormat()
     {
         $user = new User();
         $user->setName('AAAA AAAA AAAA');
@@ -324,12 +348,12 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }
 
-    public function testCreateWithNullEmail()
+    public function testUpdateWithNullEmail()
     {
         $user = new User();
         $user->setName('AAAA AAAA AAAA');
@@ -341,12 +365,12 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }
 
-    public function testCreateWithInvalidStatus()
+    public function testUpdateWithInvalidStatus()
     {
         $user = new User();
         $user->setName('AAAA AAAA AAAA');
@@ -358,9 +382,26 @@ class UserInsertApplicationTest extends TestCase
         $user->setStatus('AAAAAA');
 
         $appUser = new UserApplication();
-        $result = $appUser->create($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
         $this->assertFalse($result->getSuccess());
     }
 
+    public function testUpdateWithInvalidIdType()
+    {
+        $user = new User();
+        $user->setName('AAAA AAAA AAAA');
+        $user->setDocument('11111111111');
+        $user->setSex('M');
+        $user->setDateBirth('01/01/2017');
+        $user->setPhone('19999999999');
+        $user->setEmail('teste@uniararas.com.br');
+        $user->setStatus('AAAAAA');
+
+        $appUser = new UserApplication();
+        $result = $appUser->update($user, '');
+        $this->assertNotNull($result);
+        $this->assertInstanceOf('ApplicationResult', $result);
+        $this->assertFalse($result->getSuccess(), $result->getDetails());
+    }
 }

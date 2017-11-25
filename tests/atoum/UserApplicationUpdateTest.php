@@ -1,31 +1,62 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
+require_once __DIR__.'/../../../src/model/entity/User.php';
+require_once __DIR__.'/../../../src/model/dao/UserDao.php';
+require_once __DIR__.'/../../../src/model/aplicacao/UserApplication.php';
+require_once __DIR__.'/../../../src/controller/UserController.php';
+require_once __DIR__.'/../../../src/model/validation/UserValidation.php';
+require_once __DIR__.'/../../../src/utils/RulesValidation.php';
+require_once __DIR__.'/../../../src/utils/ApplicationResult.php';
 
-/**
- * User: jeidison
- * Date: 24/08/17
- * Time: 20:09
- */
-class UserUpdateApplicationTest extends TestCase
+class UserApplicationUpdateTest extends atoum\test
 {
+    /**
+     * @var \UnitTester
+     */
+    protected $tester;
 
-    public function testUpdateSuccess()
+    protected function _before()
+    {
+    }
+
+    protected function _after()
+    {
+    }
+
+    public function testReturnSuccessUpdate()
     {
         $user = new User();
-        $user->setName('AAAAA AAAAA');
-        $user->setDocument('11111111111');
+        $user->setName('AAAAA AAAAA AAAAA AAAAA');
+        $user->setDocument('22222222222');
         $user->setSex('M');
-        $user->setDateBirth('01/01/2017');
+        $user->setDateBirth('2017-01-01');
         $user->setPhone('19999999999');
         $user->setEmail('teste@uniararas.com.br');
-        $user->setStatus('INATIVO');
+        $user->setStatus('ATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertInstanceOf('ApplicationResult', $result);
+        $this->assertTrue($result->getSuccess(), $result->getDetails());
+    }
 
+    public function testReturnFailureCreate()
+    {
+        $user = new User();
+        $user->setName('AAAAA AAAAA AAAAA AAAAA');
+        $user->setDocument('22222222222');
+        $user->setSex('M');
+        $user->setDateBirth('2017-01-01');
+        $user->setPhone('19999999999');
+        $user->setEmail('teste@uniararas.com.br');
+        $user->setStatus('ATIVO');
+
+        $appUser = new UserApplication();
+        $result = $appUser->update($user, 777);
+        $this->assertNotNull($result);
+        $this->assertInstanceOf('ApplicationResult', $result);
+        $this->assertFalse($result->getSuccess(), $result->getDetails());
     }
 
     public function testUpdateWithLongName()
@@ -40,9 +71,9 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
 
     }
 
@@ -58,9 +89,9 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
 
     }
 
@@ -76,9 +107,9 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithNameOneWord()
@@ -93,9 +124,9 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithDocumentLessCharacters()
@@ -110,9 +141,9 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithDocumentMoreCharacters()
@@ -127,9 +158,9 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithNullDocument()
@@ -144,9 +175,9 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithDocumentExists()
@@ -161,9 +192,9 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithInvalidSex()
@@ -178,9 +209,9 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithNullSex()
@@ -195,9 +226,9 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithLargerDateBirth()
@@ -215,9 +246,9 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithMinimumDateBirth()
@@ -232,9 +263,9 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithDateBirthInvalidFormat()
@@ -249,9 +280,9 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithNullDateBirth()
@@ -266,9 +297,9 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithPhoneLessCharacters()
@@ -283,9 +314,9 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithPhoneMoreCharacters()
@@ -300,9 +331,9 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithEmailInvalidFormat()
@@ -317,9 +348,9 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithNullEmail()
@@ -334,9 +365,9 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('INATIVO');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
     public function testUpdateWithInvalidStatus()
@@ -351,9 +382,26 @@ class UserUpdateApplicationTest extends TestCase
         $user->setStatus('AAAAAA');
 
         $appUser = new UserApplication();
-        $result = $appUser->update($user);
+        $result = $appUser->update($user, 1);
         $this->assertNotNull($result);
-        $this->assertFalse($result->success);
+        $this->assertFalse($result->getSuccess());
     }
 
+    public function testUpdateWithInvalidIdType()
+    {
+        $user = new User();
+        $user->setName('AAAA AAAA AAAA');
+        $user->setDocument('11111111111');
+        $user->setSex('M');
+        $user->setDateBirth('01/01/2017');
+        $user->setPhone('19999999999');
+        $user->setEmail('teste@uniararas.com.br');
+        $user->setStatus('AAAAAA');
+
+        $appUser = new UserApplication();
+        $result = $appUser->update($user, '');
+        $this->assertNotNull($result);
+        $this->assertInstanceOf('ApplicationResult', $result);
+        $this->assertFalse($result->getSuccess(), $result->getDetails());
+    }
 }
